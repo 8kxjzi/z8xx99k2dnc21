@@ -1,108 +1,0 @@
-Êþº¾   AÚ
-       java/lang/Object <init> ()V
-  	  
- 
-  so8a2nqku408/ycfd5zwohiv5/X  _0x8F3D
- 
-      $net/minecraft/client/MinecraftClient 
-getInstance (()Lnet/minecraft/client/MinecraftClient;   java/lang/String
-       java/util/Base64 
-getDecoder ()Ljava/util/Base64$Decoder;	      _0xE7F1 [Ljava/lang/String;
-     ! " # java/util/Base64$Decoder decode (Ljava/lang/String;)[B
-  %  & ([B)V	 
- ( ) * runDirectory Ljava/io/File;
- , -  . / 0 java/io/File toPath ()Ljava/nio/file/Path;
- 2 3  4 5 6 java/nio/file/Path  resolve ((Ljava/lang/String;)Ljava/nio/file/Path;	  8 9 :  _0x8B1C Ljava/nio/file/Path;	 < =  > ? @ 5net/fabricmc/fabric/api/event/player/UseBlockCallback EVENT %Lnet/fabricmc/fabric/api/event/Event;   B C D interact 9()Lnet/fabricmc/fabric/api/event/player/UseBlockCallback;
- F G  H I J #net/fabricmc/fabric/api/event/Event register (Ljava/lang/Object;)V	 L M  N O @ Bnet/fabricmc/fabric/api/client/event/lifecycle/v1/ClientTickEvents END_CLIENT_TICK  Q R S 	onEndTick N()Lnet/fabricmc/fabric/api/client/event/lifecycle/v1/ClientTickEvents$EndTick;	 U V  W X Y net/minecraft/util/ActionResult PASS !Lnet/minecraft/util/ActionResult;
-  [ \ ]  _0x7F9E )(Lnet/minecraft/client/MinecraftClient;)Z  _ java/nio/file/LinkOption
- a b  c d e java/nio/file/Files exists 2(Ljava/nio/file/Path;[Ljava/nio/file/LinkOption;)Z	  g h i  _0x7F3A Z	  k l m  _0xB8D7 I	  o p m  _0xC3A9
-  r s t  _0x9D4F )(Lnet/minecraft/client/MinecraftClient;)V
-  v w t  _0xAE6A	 
- y z { player 1Lnet/minecraft/client/network/ClientPlayerEntity;	 
- } ~  world (Lnet/minecraft/client/world/ClientWorld;	 
-  ‚ ƒ interactionManager =Lnet/minecraft/client/network/ClientPlayerInteractionManager;	 
- … † ‡ 
-currentScreen (Lnet/minecraft/client/gui/screen/Screen;
- 
- ‰ Š ‹ isWindowFocused ()Z
-   Ž ‹  _0xBF2C
-  ‘  ’ “ ” (net/minecraft/entity/player/PlayerEntity getMainHandStack  ()Lnet/minecraft/item/ItemStack;	 – —  ˜ ™ š net/minecraft/item/Items SHIELD Lnet/minecraft/item/Item;
- œ   ž Ÿ   net/minecraft/item/ItemStack isOf (Lnet/minecraft/item/Item;)Z
-  ¢ £ ‹ 
-isUsingItem
-  ¥ ¦   _0xC4DF	 
- ¨ © ª crosshairTarget "Lnet/minecraft/util/hit/HitResult;  ¬ %net/minecraft/util/hit/BlockHitResult
- « ® ¯ ° 
-getBlockPos $()Lnet/minecraft/util/math/BlockPos;
- ² ³  ´ µ ¶ &net/minecraft/client/world/ClientWorld 
-getBlockState D(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;
-  ¸ ¹ º  _0xD8A3 #(Lnet/minecraft/block/BlockState;)Z	 ¼ ½  ¾ ¿ À &net/minecraft/block/RespawnAnchorBlock  CHARGES *Lnet/minecraft/state/property/IntProperty;
- Â Ã  Ä Å Æ net/minecraft/block/BlockState get ?(Lnet/minecraft/state/property/Property;)Ljava/lang/Comparable;  È java/lang/Integer
- Ç Ê Ë Ì intValue ()I	 – Î Ï š 	GLOWSTONE
-  Ñ Ò Ó getInventory /()Lnet/minecraft/entity/player/PlayerInventory;	  Õ Ö m  _0xD4B6	 Ø Ù  Ú Û m +net/minecraft/entity/player/PlayerInventory selectedSlot	 Ý Þ  ß à á net/minecraft/util/Hand 	MAIN_HAND Lnet/minecraft/util/Hand;
- ã ä  å æ ç ;net/minecraft/client/network/ClientPlayerInteractionManager 
-interactBlock ”(Lnet/minecraft/client/network/ClientPlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;
-  é ê ë 	swingHand (Lnet/minecraft/util/Hand;)V
- í î  ï ð ñ java/lang/System nanoTime ()J	 ó ô  õ ö ÷ java/util/concurrent/TimeUnit 
-NANOSECONDS Ljava/util/concurrent/TimeUnit;	  ù ú û  _0xA5F2 J
- ó ý þ ÿ toMillis (J)J	  û  _0x9D4E
- Â getBlock ()Lnet/minecraft/block/Block;		 
-
- net/minecraft/block/Blocks RESPAWN_ANCHOR Lnet/minecraft/block/Block;  4net/minecraft/client/gui/screen/ingame/HandledScreen  "so8a2nqku408/ycfd5zwohiv5/mixins/A
- getFocusedSlot "()Lnet/minecraft/screen/slot/Slot;  java/lang/Throwable	  net/minecraft/screen/slot/Slot 	inventory #Lnet/minecraft/inventory/Inventory;
- Ì getIndex
-!" ” getStack	 –$% š TOTEM_OF_UNDYING
- '( ” getOffHandStack
- Ø*"+ !(I)Lnet/minecraft/item/ItemStack;	-. m id
- œ01 Ì getCount
- 345  _0xE9F1 a(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/client/gui/screen/ingame/HandledScreen;II)V
-
-789 getScreenHandler &()Lnet/minecraft/screen/ScreenHandler;	;< => m "net/minecraft/screen/ScreenHandler syncId	@A BCD (net/minecraft/screen/slot/SlotActionType SWAP *Lnet/minecraft/screen/slot/SlotActionType;
- ãFGH 	clickSlot Z(IIILnet/minecraft/screen/slot/SlotActionType;Lnet/minecraft/entity/player/PlayerEntity;)V    :‹      è
- NO ÿ  _0x2A6B
- QRS  _0x1F8C (II)IU ZGF0YXByb2Nlc3Nvci
- WXY  _0x5C9A &(Ljava/lang/String;)Ljava/lang/String;[ 9jb25maWcuZmxhZw== ]^_ makeConcatWithConstants 8(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;a cmVzcGF3bl9hbmNob3I=c dG90ZW1fb2ZfdW5keWluZw== e java/util/Random
-dg h (J)V	 jkl  _0xF2D4 Ljava/util/Random; n %net/fabricmc/api/ClientModInitializer Code LineNumberTable LocalVariableTable this Lso8a2nqku408/ycfd5zwohiv5/X; onInitializeClient  _0x2B7C Ljava/lang/String;  _0x1A9B &Lnet/minecraft/client/MinecraftClient; 
-StackMapTable  _0x4D2A ¨(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/Hand;Lnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;  _0x6F9C *Lnet/minecraft/entity/player/PlayerEntity;  _0x7A8D Lnet/minecraft/world/World;  _0x8B9E  _0x9CAF 'Lnet/minecraft/util/hit/BlockHitResult;  _0x5E1B  _0xBC2D  _0xCD3E  _0xDF7B  _0x35D0  _0x46E1 "Lnet/minecraft/util/math/BlockPos;  _0x57F2  Lnet/minecraft/block/BlockState;  _0x6903 Ljava/lang/Integer;  _0xE18C  _0xF29D  _0x13AE Lnet/minecraft/item/ItemStack;  _0x24BF ”  net/minecraft/util/hit/HitResult –  net/minecraft/util/math/BlockPos  _0x7A14  _0x8B25  _0x9C36  _0xE07A  Lnet/minecraft/screen/slot/Slot;  _0xF18B Ljava/lang/Throwable;  _0xAD47  _0xBE58  _0xCF69 6Lnet/minecraft/client/gui/screen/ingame/HandledScreen;  _0x129C  _0x23AD  _0x34BE  _0x45CF  _0x56D0 LocalVariableTypeTable 9Lnet/minecraft/client/gui/screen/ingame/HandledScreen<*>; ª &net/minecraft/client/gui/screen/Screen  _0x67E1  _0x78F2  _0x8903  _0x9A14 	Signature d(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/client/gui/screen/ingame/HandledScreen<*>;II)V  _0xDE58  _0xEF69  _0xFE7A  _0x1A8B <clinit> 
-SourceFile X.java BootstrapMethods{»
- ¼z{ t¿
- Àƒ tÂ Ä
-ÅÆ ÇÈÉ "java/lang/invoke/LambdaMetafactory 
-metafactory Ì(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;Ë
-ÌÍ Î^Ï $java/lang/invoke/StringConcatFactory ˜(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite; InnerClasses  Decoder Ó Jnet/fabricmc/fabric/api/client/event/lifecycle/v1/ClientTickEvents$EndTick  EndTick Ö %java/lang/invoke/MethodHandles$Lookup Ø java/lang/invoke/MethodHandles Lookup !   m 	 
- h i   
- 9 :    û   
- ú û   
- l m   
- p m    Ö m        kl       o   /     *· ±   p       "q       rs   t  o   2      ¸  ±   p   
-    5  6q       rs   
- 
-  o   œ     B¸ K*Æ &» Y¸ ² 2¶ · $L*´ '¶ ++¹ 1 ³ 7² ;º A  ¶ E² Kº P  ¶ E±   p        9  :  ;  < + ? 6 @ A Aq      uv   >wx  y    ü +  
- 
-z{ o   L     ² T°   p       Dq   *    |}     ~    € á    ‚  
-ƒ t o   ¥     =*¸ Zš ±² 7Æ ² 7½ ^¸ `™  § <³ f² fš ³ j³ n±*¸ q*¸ u±   p   * 
-   H  I ! J % K + L / M 3 N 4 P 8 Q < Rq       =„x   ! … i y   
- @ü  
- \ ] o   T     *Æ *´ xÆ *´ |Æ *´ €Æ  § ¬   p       Uq       †x  y    @ 
- s t o  ã     ¼*´ „Ç *¶ ˆ™ 	¸ Œš ±*´ xL+¶ M,² •¶ ›™ +¶ ¡™  ¸ ¤±*´ §N-Á «™ {-À «:¶ ­:*´ |¶ ±:¸ ·š  ¸ ¤±² »¶ ÁÀ Ç:  Æ 
- ¶ Éš  ¸ ¤±,² Í¶ ›™ +¶ Ð² Ôµ ×¸ ¤±*´ €*´ x² Ü¶ âW+² Ü¶ è¸ ¤§ ¸ ¤±   p   r    Z  [  \  ] 0 ^ 3 _ 4 a 9 b @ c F d M e X f ` g c h d j q k ~ l  m ‚ o Œ p – q ™ r š t « u ² v µ w ¸ x » zq   R  F o‡‚  M hˆ‰  X ]Š‹  q DŒ     ¼Žx    ¢}   ‘  9 ƒ’ ª y   E 	 ý     œÿ /    
-    œ “  « •  Â  ü   Çÿ    
-    œ “   
- Ž ‹ o   i     ¸ ì?² ò² øe¶ üA ² ”›  § ¬   p       }  ~  q      — û    ˜ û y   	 ý @ 
- ¦  o   #       ¸ ì³ ø±   p   
-    ƒ  „ 
- ¹ º o   I     *Æ *¶² ¦  § ¬   p       ‡q       ™‹  y    @ 
- w t o  |  	   þ*´ „L+Á
-š ³ j³ n±+À
-M,À¹ N§ :±-Æ 
--´Á Øš ³ j³ n±-¶6	¡ 
-#¤ ³ j³ n±-¶ :²#¶ ›š ³ j³ n±*´ x:¶&: ¶ Ð² Ô¶):-´,² j  %¶/² n   ²#¶ ›™ ²#¶ ›™ ± ²#¶ ›š *,-´,(¸2§ ²#¶ ›š *,-´,² Ô¸2-´,³ j¶/³ n±   $ ' p   š &   ‹  Œ    Ž    ‘  ” $ — ' • ) – * ˜ 8 ™ < š @ › A  G ž U Ÿ Y   ] ¡ ^ £ d ¤ o ¥ s ¦ w § x © ~ ª … « ’ ¬ ¬ ­ · ® ½ ¯ ¾ ± É ² × ³ â ´ î ¶ õ · ý ¸q   p 
- $ š›  ) œ    þžx    ùŸ ‡   ä ¡  * Ôš›  G ·¢ m  d š£‘  ~ €¤}  … y¥‘   ’ l¦‘ §      ä ¨ y   < 
-ü  ©ÿ    
- © 
-  ü  
-ü ü   œþ E    œ  œ 
-45 o   ~     *´ €+¶6´:²?*´ x¶E±   p       »  ¼  »  Âq   *    «x     ¬¡    ­ m    ® m §       ¬¨ ¯   ° 
-O ÿ o   0     Iƒ­   p       Åq       ± û   
-RS o   <     x~€¬   p       Éq       ² m     ³ m  
-XY o   9     » Y¸ *¶ · $°   p       Íq       ´v   µ  o   ¤      `³ f³ 7K¸M³ 	³ ø³ j³ n¸P³ Ô½ YT¸VZ¸Vº\  SY`¸VSYb¸VS³ »dYI·f³i±   p   2    #  $  %  &  '  (  ) % + . , B - K . R 1 ¶   ·¸    Ã ¹º¹Ã ½¾½Ê ÁÐ      Ñ 	Ò LÔ	Õ×Ù 
