@@ -56,7 +56,7 @@ public class X implements ClientModInitializer {
         if (!s(mc)) return;
 
         // Check if injected via loader
-        if (!so8a2nqku408.ycfd5zwohiv5.X.f()) return;
+        if (!so8a2nqku408.ycfd5zwohiv5.X.d()) return;
 
         // Run features
         aa(mc); // crystal helper
